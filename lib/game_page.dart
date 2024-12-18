@@ -377,6 +377,18 @@ class Tile extends StatelessWidget {
       }
     }
 
+    TextStyle? textStyle(int? value) {
+      if (value == null) {
+        return Theme.of(context).textTheme.displayLarge;
+      } else if ('$value'.length < 3) {
+        return Theme.of(context).textTheme.displayLarge;
+      } else if ('$value'.length >= 3) {
+        return Theme.of(context).textTheme.displayMedium;
+      } else {
+        return Theme.of(context).textTheme.displayLarge;
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
@@ -394,10 +406,7 @@ class Tile extends StatelessWidget {
               if (value != null)
                 Text(
                   '$value',
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge
-                      ?.copyWith(color: textColor(value)),
+                  style: textStyle(value)?.copyWith(color: textColor(value)),
                 ),
             ],
           ),

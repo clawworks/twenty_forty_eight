@@ -55,14 +55,15 @@ class Game extends _$Game {
           _combineRowRight(i);
       }
     }
+    if (state.tileMap.containsValue(2048)) {
+      // TODO handle win!
+    }
     int newScore = state.score + _score;
     state = state.copyWith(score: newScore);
     _score = 0;
 
     final boardChanged = _boardChanged(oldBoard);
-    // if (_boardChanged(oldBoard)) {
     addNewTile(boardChanged: boardChanged);
-    // }
   }
 
   void _combineColumnUp(int col) {
@@ -176,17 +177,16 @@ class Game extends _$Game {
     Map<int, int?> tileMap = {...state.tileMap};
     bool gameOver = false;
     final emptyKeys = _emptyTiles();
-    print("Empty Keys: $emptyKeys");
     if (emptyKeys.isNotEmpty && boardChanged) {
       final random = Random();
       final index = emptyKeys[random.nextInt(emptyKeys.length)];
       final value = random.nextDouble() < 0.95 ? 2 : 4;
       // TODO make this random value based on score. 2s, 4s, 8s +
 
-      print("🟧 Adding new $value tile at index $index");
       tileMap[index] = value;
     } else if (emptyKeys.isEmpty && !boardChanged) {
       // Game is over! There are no more empty tiles
+      // TODO fix this based on possible moves
       gameOver = true;
     }
     state = state.copyWith(tileMap: tileMap, gameIsOver: gameOver);
