@@ -23,7 +23,7 @@ final defaultTileMapProvider = AutoDisposeProvider<Map<int, int?>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef DefaultTileMapRef = AutoDisposeProviderRef<Map<int, int?>>;
-String _$testTileMapHash() => r'f1aebe1721eae5f809ac4edac370ea49db9f8ca0';
+String _$testTileMapHash() => r'ed0e6c0ce477fa1d0b2919f8f3037dd11275ff95';
 
 /// See also [testTileMap].
 @ProviderFor(testTileMap)
@@ -189,7 +189,7 @@ class _TileColorProviderElement extends AutoDisposeProviderElement<Color>
   int? get value => (origin as TileColorProvider).value;
 }
 
-String _$gameHash() => r'134575714965af67dd67e226234b031a34c489c4';
+String _$gameHash() => r'29991552e31f55e5b8e6d476c71572453bae4fe2';
 
 /// See also [Game].
 @ProviderFor(Game)

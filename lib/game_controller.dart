@@ -21,15 +21,17 @@ class Game extends _$Game {
   GameState _newGameState() {
     GameState newGame = GameState(
       name: 'BJC  News',
-      // tileMap: ref.watch(testTileMapProvider),
-      tileMap: ref.watch(defaultTileMapProvider),
+      tileMap: ref.watch(testTileMapProvider),
+      // tileMap: ref.watch(defaultTileMapProvider),
       score: 0,
       gameIsOver: false,
+      gameWon: false,
     );
     final Map<int, int?> tileMap = {...newGame.tileMap};
     final random = Random();
     for (int i = 0; i < 2; i++) {
-      final index = random.nextInt(tileMap.length);
+      final availableTiles = _emptyTiles(newGame.tileMap);
+      final index = availableTiles[random.nextInt(availableTiles.length)];
       final value = random.nextDouble() < 0.95 ? 2 : 4;
       tileMap[index] = value;
     }
@@ -55,15 +57,17 @@ class Game extends _$Game {
           _combineRowRight(i);
       }
     }
-    if (state.tileMap.containsValue(2048)) {
-      // TODO handle win!
-    }
     int newScore = state.score + _score;
     state = state.copyWith(score: newScore);
     _score = 0;
 
     final boardChanged = _boardChanged(oldBoard);
     addNewTile(boardChanged: boardChanged);
+
+    if (state.tileMap.containsValue(2048) && !state.gameIsOver) {
+      // TODO handle win!
+      state = state.copyWith(gameWon: true, gameIsOver: true);
+    }
   }
 
   void _combineColumnUp(int col) {
@@ -176,7 +180,7 @@ class Game extends _$Game {
   void addNewTile({required bool boardChanged}) {
     Map<int, int?> tileMap = {...state.tileMap};
     bool gameOver = false;
-    final emptyKeys = _emptyTiles();
+    final emptyKeys = _emptyTiles(state.tileMap);
     if (emptyKeys.isNotEmpty && boardChanged) {
       final random = Random();
       final index = emptyKeys[random.nextInt(emptyKeys.length)];
@@ -192,8 +196,8 @@ class Game extends _$Game {
     state = state.copyWith(tileMap: tileMap, gameIsOver: gameOver);
   }
 
-  List<int> _emptyTiles() {
-    return state.tileMap.keys.where((i) => state.tileMap[i] == null).toList();
+  List<int> _emptyTiles(Map<int, int?> tileMap) {
+    return tileMap.keys.where((i) => tileMap[i] == null).toList();
   }
 
   void startNewGame() {
@@ -241,11 +245,11 @@ Map<int, int?> testTileMap(Ref ref) {
     7: 256,
     8: 512,
     9: 1024,
-    10: 2048,
+    10: null,
     11: 4096,
     12: null,
     13: null,
-    14: null,
+    14: 1024,
     15: null,
   };
 

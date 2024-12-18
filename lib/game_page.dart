@@ -243,7 +243,7 @@ class GameGrid extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            'Game Over!',
+                            game.gameWon ? 'You Won!' : 'Game Over!',
                             style: Theme.of(context).textTheme.displayLarge,
                           ),
                           const SizedBox(height: 40.0),

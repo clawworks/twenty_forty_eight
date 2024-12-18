@@ -13,6 +13,7 @@ _$GameImpl _$$GameImplFromJson(Map<String, dynamic> json) => _$GameImpl(
       ),
       score: (json['score'] as num).toInt(),
       gameIsOver: json['gameIsOver'] as bool,
+      gameWon: json['gameWon'] as bool,
     );
 
 Map<String, dynamic> _$$GameImplToJson(_$GameImpl instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$$GameImplToJson(_$GameImpl instance) =>
       'tileMap': instance.tileMap.map((k, e) => MapEntry(k.toString(), e)),
       'score': instance.score,
       'gameIsOver': instance.gameIsOver,
+      'gameWon': instance.gameWon,
     };
