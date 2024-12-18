@@ -247,14 +247,32 @@ class GameGrid extends ConsumerWidget {
                             style: Theme.of(context).textTheme.displayLarge,
                           ),
                           const SizedBox(height: 40.0),
-                          ElevatedButton(
-                            onPressed: () {
-                              ref.read(gameProvider.notifier).startNewGame();
-                            },
-                            child: Text(
-                              'Try Again!',
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              if (game.gameWon)
+                                ElevatedButton(
+                                  onPressed: () {
+                                    ref.read(gameProvider.notifier).keepGoing();
+                                  },
+                                  child: Text(
+                                    'Keep Going!',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  ref
+                                      .read(gameProvider.notifier)
+                                      .startNewGame();
+                                },
+                                child: Text(
+                                  'Try Again!',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

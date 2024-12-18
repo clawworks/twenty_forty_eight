@@ -64,7 +64,9 @@ class Game extends _$Game {
     final boardChanged = _boardChanged(oldBoard);
     addNewTile(boardChanged: boardChanged);
 
-    if (state.tileMap.containsValue(2048) && !state.gameIsOver) {
+    if (state.tileMap.containsValue(2048) &&
+        !state.gameWon &&
+        !state.gameIsOver) {
       // TODO handle win!
       state = state.copyWith(gameWon: true, gameIsOver: true);
     }
@@ -180,6 +182,7 @@ class Game extends _$Game {
   void addNewTile({required bool boardChanged}) {
     Map<int, int?> tileMap = {...state.tileMap};
     bool gameOver = false;
+    bool gameWon = state.gameWon;
     final emptyKeys = _emptyTiles(state.tileMap);
     if (emptyKeys.isNotEmpty && boardChanged) {
       final random = Random();
@@ -192,8 +195,15 @@ class Game extends _$Game {
       // Game is over! There are no more empty tiles
       // TODO fix this based on possible moves
       gameOver = true;
+      gameWon = false;
+      print("✅ GameOver!");
     }
-    state = state.copyWith(tileMap: tileMap, gameIsOver: gameOver);
+
+    state = state.copyWith(
+      tileMap: tileMap,
+      gameIsOver: gameOver,
+      gameWon: gameWon,
+    );
   }
 
   List<int> _emptyTiles(Map<int, int?> tileMap) {
@@ -205,6 +215,10 @@ class Game extends _$Game {
     // We now get two tiles at the beginning of the game state...
     // addNewTile(boardChanged: true);
     // addNewTile(boardChanged: true);
+  }
+
+  void keepGoing() {
+    state = state.copyWith(gameIsOver: false);
   }
 }
 

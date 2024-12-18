@@ -189,7 +189,7 @@ class _TileColorProviderElement extends AutoDisposeProviderElement<Color>
   int? get value => (origin as TileColorProvider).value;
 }
 
-String _$gameHash() => r'29991552e31f55e5b8e6d476c71572453bae4fe2';
+String _$gameHash() => r'b4dc10eba010127eb7ea69631ea64cea8504e708';
 
 /// See also [Game].
 @ProviderFor(Game)
