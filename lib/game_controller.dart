@@ -21,14 +21,19 @@ class Game extends _$Game {
   GameState _newGameState() {
     GameState newGame = GameState(
       name: 'BJC  News',
-      tileMap: ref.watch(testTileMapProvider),
-      // tileMap: ref.watch(defaultTileMapProvider),
+      // tileMap: ref.watch(testTileMapProvider),
+      tileMap: ref.watch(defaultTileMapProvider),
       score: 0,
       gameIsOver: false,
     );
-    // addNewTile();
-    // addNewTile();
-    return newGame;
+    final Map<int, int?> tileMap = {...newGame.tileMap};
+    final random = Random();
+    for (int i = 0; i < 2; i++) {
+      final index = random.nextInt(tileMap.length);
+      final value = random.nextDouble() < 0.95 ? 2 : 4;
+      tileMap[index] = value;
+    }
+    return newGame.copyWith(tileMap: tileMap);
   }
 
   @override
@@ -193,8 +198,9 @@ class Game extends _$Game {
 
   void startNewGame() {
     ref.invalidateSelf();
-    addNewTile(boardChanged: true);
-    addNewTile(boardChanged: true);
+    // We now get two tiles at the beginning of the game state...
+    // addNewTile(boardChanged: true);
+    // addNewTile(boardChanged: true);
   }
 }
 
