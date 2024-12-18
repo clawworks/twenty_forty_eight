@@ -21,8 +21,8 @@ class Game extends _$Game {
   GameState _newGameState() {
     GameState newGame = GameState(
       name: 'BJC  News',
-      tileMap: ref.watch(testTileMapProvider),
-      // tileMap: ref.watch(defaultTileMapProvider),
+      // tileMap: ref.watch(testTileMapProvider),
+      tileMap: ref.watch(defaultTileMapProvider),
       score: 0,
       gameIsOver: false,
       gameWon: false,
