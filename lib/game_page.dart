@@ -382,8 +382,10 @@ class Tile extends StatelessWidget {
         return Theme.of(context).textTheme.displayLarge;
       } else if ('$value'.length < 3) {
         return Theme.of(context).textTheme.displayLarge;
-      } else if ('$value'.length >= 3) {
+      } else if ('$value'.length == 3) {
         return Theme.of(context).textTheme.displayMedium;
+      } else if ('$value'.length > 3) {
+        return Theme.of(context).textTheme.displaySmall;
       } else {
         return Theme.of(context).textTheme.displayLarge;
       }
